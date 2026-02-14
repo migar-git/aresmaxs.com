@@ -740,6 +740,315 @@ button:hover ~ .cursor {
     font-size: 0.9rem;
 }
 
+/* ========== PRODUCTS SECTION ========== */
+.section-products {
+    background: var(--dark);
+    padding: 8rem 5%;
+}
+
+.product-highlight {
+    max-width: 900px;
+    margin: 0 auto 4rem;
+    background: var(--dark-lighter);
+    padding: 4rem;
+    border: 2px solid var(--gold);
+    text-align: center;
+    position: relative;
+}
+
+.product-badge {
+    display: inline-block;
+    background: var(--gold);
+    color: var(--dark);
+    padding: 0.5rem 1.5rem;
+    font-weight: 700;
+    font-size: 0.9rem;
+    letter-spacing: 0.1em;
+    margin-bottom: 1.5rem;
+}
+
+.product-highlight h3 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    color: var(--gold);
+}
+
+.product-price {
+    font-size: 4rem;
+    font-weight: 900;
+    color: var(--gold);
+    margin-bottom: 1rem;
+}
+
+.product-highlight > p {
+    font-size: 1.2rem;
+    color: var(--text-dim);
+    margin-bottom: 2rem;
+    line-height: 1.8;
+}
+
+.product-features {
+    list-style: none;
+    margin: 2rem 0;
+    text-align: left;
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.product-features li {
+    font-size: 1.1rem;
+    color: var(--text);
+    margin-bottom: 1rem;
+    padding-left: 0;
+}
+
+.product-note {
+    margin-top: 1.5rem;
+    font-size: 0.9rem;
+    color: var(--text-dim);
+}
+
+.product-catalog {
+    text-align: center;
+    padding: 3rem;
+    background: var(--dark-light);
+    border: 1px solid rgba(255, 215, 0, 0.2);
+}
+
+.catalog-intro {
+    font-size: 1.2rem;
+    color: var(--text);
+    margin-bottom: 0.5rem;
+}
+
+.catalog-price {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--gold);
+    margin-bottom: 1rem;
+}
+
+.catalog-link {
+    display: inline-block;
+    color: var(--gold);
+    text-decoration: none;
+    font-size: 1.1rem;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 2px solid transparent;
+}
+
+.catalog-link:hover {
+    border-bottom-color: var(--gold);
+    transform: translateX(5px);
+}
+
+/* ========== TESTIMONIALS SECTION ========== */
+.section-testimonials {
+    background: var(--dark-light);
+    padding: 8rem 5%;
+}
+
+.testimonials-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 2rem;
+}
+
+.testimonial-card {
+    background: var(--dark);
+    padding: 2.5rem;
+    border: 1px solid rgba(255, 215, 0, 0.2);
+    transition: all 0.3s ease;
+}
+
+.testimonial-card:hover {
+    transform: translateY(-10px);
+    border-color: var(--gold);
+    box-shadow: 0 20px 40px rgba(255, 215, 0, 0.2);
+}
+
+.testimonial-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 1.5rem;
+}
+
+.testimonial-name {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--gold);
+    margin-bottom: 0.3rem;
+}
+
+.testimonial-role {
+    font-size: 0.9rem;
+    color: var(--text-dim);
+}
+
+.verified-badge {
+    background: rgba(0, 240, 255, 0.1);
+    color: var(--neon-blue);
+    padding: 0.4rem 0.8rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    border-radius: 4px;
+    white-space: nowrap;
+}
+
+.testimonial-text {
+    font-size: 1.05rem;
+    line-height: 1.8;
+    color: var(--text);
+    margin-bottom: 1.5rem;
+    font-style: italic;
+}
+
+.testimonial-result {
+    font-size: 0.95rem;
+    color: var(--gold);
+    font-weight: 600;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(255, 215, 0, 0.2);
+}
+
+/* ========== CONTACT SECTION ========== */
+.section-contact {
+    background: var(--dark);
+    padding: 8rem 5%;
+}
+
+.contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.5fr;
+    gap: 5rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.contact-info {
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+}
+
+.contact-item {
+    display: flex;
+    gap: 1.5rem;
+    align-items: flex-start;
+}
+
+.contact-icon {
+    font-size: 2rem;
+    flex-shrink: 0;
+}
+
+.contact-item h3 {
+    font-size: 1.2rem;
+    color: var(--gold);
+    margin-bottom: 0.5rem;
+}
+
+.contact-item a {
+    color: var(--text);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.contact-item a:hover {
+    color: var(--gold);
+}
+
+.contact-item p {
+    color: var(--text-dim);
+}
+
+.contact-form form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.contact-form input,
+.contact-form textarea {
+    width: 100%;
+    padding: 1.2rem;
+    background: var(--dark-lighter);
+    border: 1px solid rgba(255, 215, 0, 0.2);
+    color: var(--text);
+    font-size: 1rem;
+    font-family: inherit;
+    transition: all 0.3s ease;
+}
+
+.contact-form input:focus,
+.contact-form textarea:focus {
+    outline: none;
+    border-color: var(--gold);
+    background: var(--dark);
+}
+
+.contact-form textarea {
+    resize: vertical;
+    min-height: 150px;
+}
+
+.contact-form button {
+    justify-self: flex-start;
+    cursor: pointer;
+}
+
+/* ========== FOOTER UPDATES ========== */
+.footer-company {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 0.5rem;
+}
+
+.footer-contact {
+    margin-top: 1.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid rgba(255, 215, 0, 0.1);
+}
+
+.footer-contact p {
+    margin-bottom: 0.5rem;
+}
+
+.footer-contact a {
+    color: var(--text-dim);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.footer-contact a:hover {
+    color: var(--gold);
+}
+
+.footer-social-bar {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    padding: 2rem 0;
+    margin-top: 2rem;
+    border-top: 1px solid rgba(255, 215, 0, 0.1);
+}
+
+.footer-social-icon {
+    font-size: 1.8rem;
+    color: var(--text-dim);
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.footer-social-icon:hover {
+    color: var(--gold);
+    transform: translateY(-5px);
+}
+
 /* ========== RESPONSIVE ========== */
 @media (max-width: 768px) {
     .section {
@@ -752,8 +1061,22 @@ button:hover ~ .cursor {
     
     .cards-grid,
     .revenue-cards,
-    .tech-grid {
+    .tech-grid,
+    .testimonials-grid {
         grid-template-columns: 1fr;
+    }
+    
+    .product-highlight {
+        padding: 2.5rem 1.5rem;
+    }
+    
+    .product-price {
+        font-size: 3rem;
+    }
+    
+    .contact-grid {
+        grid-template-columns: 1fr;
+        gap: 3rem;
     }
     
     .footer-content {
@@ -763,6 +1086,10 @@ button:hover ~ .cursor {
     
     .footer-links {
         grid-template-columns: 1fr;
+    }
+    
+    .footer-social-bar {
+        gap: 1.5rem;
     }
     
     .machine-circle {
