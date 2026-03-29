@@ -1,0 +1,20 @@
+# robots.txt for aresmaxs.com
+
+User-agent: *
+Allow: /
+
+# Sitemap location
+Sitemap: https://aresmaxs.com/sitemap.xml
+
+# Disallow access to any admin or private directories (if they exist in the future)
+Disallow: /admin/
+Disallow: /private/
+Disallow: /.git/
+
+# Allow all crawlers to access main content
+Allow: /index.html
+Allow: /privacy.html
+Allow: /terms.html
+Allow: /refund.html
+Allow: /style.css
+Allow: /script.js
