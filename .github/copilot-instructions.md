@@ -21,3 +21,9 @@ This is part of the migar-git organization. Read CLAUDE.md and AGENTS.md for ful
 - pytest with conftest.py fixtures
 - Mock external APIs
 - Target ≥80% coverage on new code
+
+## Time Rules
+- All timestamps UTC ISO 8601 (e.g. `2026-03-30T14:30:00Z`)
+- No local timezone assumptions — agents run across machines
+- Use absolute dates in commit messages, logs, and memory files
+- No relative dates ("yesterday", "last week") in any persisted text
