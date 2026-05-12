@@ -1,16 +1,42 @@
+---
+title: "Security"
+owner: "migar"
+status: "Active"
+last_reviewed: "2026-05-12"
+---
+
 # Security — aresmaxs.com
 
 ## Content Security Policy
 
 CSP is enforced via `<meta http-equiv="Content-Security-Policy">` in `index.html`.
 
-Current policy goals:
-- `default-src 'self'` — no third-party script execution
-- `style-src 'self' 'unsafe-inline'` — inline styles permitted (animations)
-- `script-src 'self'` — no inline scripts; all JS in `script.js`
-- `img-src 'self' data:` — no external image hotlinking
+Current policy (as in `index.html`):
 
-Review and tighten this policy before adding any third-party embeds or analytics.
+```
+default-src 'self';
+script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com;
+style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
+font-src 'self' https://fonts.gstatic.com;
+img-src 'self' data: https:;
+connect-src 'self';
+object-src 'none';
+base-uri 'self';
+```
+
+Rationale:
+- `'unsafe-inline'` on `script-src` accommodates the inline `<script type="application/ld+json">` Schema.org block (Schema.org JSON-LD is data, not executed code, but CSP still gates the tag).
+- `'unsafe-inline'` on `style-src` accommodates animation-related inline styles.
+- `cdnjs.cloudflare.com` is whitelisted but not currently consumed — candidate for removal (see Hardening Backlog).
+- `img-src 'self' data: https:` is broader than needed; tightenable once asset audit is complete.
+
+### Hardening Backlog
+
+| Item | Action | Risk if deferred |
+|---|---|---|
+| Drop `https://cdnjs.cloudflare.com` from `script-src` (unused) | One-line edit + Lighthouse verification | Allows a future inline-script bug to load arbitrary cdnjs payloads |
+| Replace `'unsafe-inline'` on `script-src` with SHA-256 hash of JSON-LD block | Compute hash, swap directive, test on Chrome/Firefox/Safari | Inline-script XSS surface remains open |
+| Narrow `img-src` to specific allowed hosts | Audit referenced images, allowlist hosts | Hotlinking and tracking-pixel risk |
 
 ## Secrets and Environment Variables
 

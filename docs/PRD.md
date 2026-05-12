@@ -3,6 +3,7 @@ title: "Aresmax Digital — Product Requirements Document"
 version: "1.0"
 status: "Active"
 owner: "migar"
+last_reviewed: "2026-05-12"
 last-updated: "2026-04-07"
 ---
 

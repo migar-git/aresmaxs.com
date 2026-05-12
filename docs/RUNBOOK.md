@@ -1,10 +1,17 @@
+---
+title: "Runbook"
+owner: "migar"
+status: "Active"
+last_reviewed: "2026-05-12"
+---
+
 # Runbook — aresmaxs.com
 
 ## Service Overview
 
 - **Site:** https://aresmaxs.com
 - **Type:** Static HTML/CSS/JS brand landing page
-- **Hosting:** GitHub Pages (branch: main)
+- **Hosting:** GitHub Pages (branch: master)
 - **Custom Domain:** aresmaxs.com
 
 ---
@@ -16,7 +23,7 @@
 ```bash
 git add <files>
 git commit -m "type: description"
-git push origin main
+git push origin master
 ```
 
 GitHub Pages publishes within ~60 seconds.
@@ -35,7 +42,7 @@ curl -I https://aresmaxs.com
 ### Site Not Loading
 
 1. Check https://www.githubstatus.com
-2. If GitHub Pages operational: check Settings → Pages, confirm source is `main` / root
+2. If GitHub Pages operational: check Settings → Pages, confirm source is `master` / root
 3. Check last commit did not break HTML structure (mismatched tags, etc.)
 
 ### Domain Not Resolving
@@ -66,10 +73,10 @@ curl -I https://aresmaxs.com
 
 ```bash
 git revert HEAD
-git push origin main
+git push origin master
 # Or for a specific commit:
 git revert <bad-commit-sha>
-git push origin main
+git push origin master
 ```
 
 ---
