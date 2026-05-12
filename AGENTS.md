@@ -16,7 +16,7 @@ schema_version: "1.0"
 ```yaml
 repo: aresmaxs.com
 type: static-site
-canonical_purpose: Minimal static site â€” Aresmax brand landing page
+canonical_purpose: Minimal static site — Aresmax brand landing page
 authority_ceiling: 1
 ```
 

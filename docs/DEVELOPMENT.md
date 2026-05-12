@@ -1,7 +1,9 @@
 ---
+title: "Developer Guide"
+owner: "migar"
+status: "Active"
+last_reviewed: "2026-05-12"
 prd-version: "1.0"
-last-updated: "2026-04-27"
-status: "Current"
 ---
 
 # Developer Guide - aresmaxs.com

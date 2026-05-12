@@ -1,3 +1,10 @@
+---
+title: "ADR-001: Initial Architecture — Static HTML/CSS/JS on GitHub Pages"
+owner: "migar"
+status: "Active"
+last_reviewed: "2026-05-12"
+---
+
 # ADR-001: Initial Architecture — Static HTML/CSS/JS on GitHub Pages
 
 **Date:** 2026-02-01

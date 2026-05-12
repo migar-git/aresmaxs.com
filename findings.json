@@ -1,0 +1,178 @@
+{
+  "repo": {
+    "name": "aresmaxs.com",
+    "path": "C:/Users/migar/DEV/aresmaxs.com",
+    "defaultBranch": "master",
+    "detectedStacks": ["static-site", "HTML", "CSS", "JavaScript", "Markdown"],
+    "detectedBuildCommands": [],
+    "detectedTestCommands": [
+      "markdownlint 'docs/**/*.md' '*.md' --config .markdownlint.json",
+      "npx lighthouse https://aresmaxs.com"
+    ]
+  },
+  "summary": {
+    "generatedAt": "2026-05-12T12:56:27Z",
+    "findingCountsBySeverity": {
+      "critical": 0,
+      "high": 1,
+      "medium": 3,
+      "low": 1,
+      "info": 0
+    },
+    "topRisks": [
+      "doc-lint.yml CI workflow would fail any PR touching docs/ — 10 of 11 doc files were non-compliant with frontmatter schema before this run",
+      "docs/SECURITY.md misrepresents the actual CSP policy, weakening the doc-as-source-of-truth contract",
+      "CSP allows unused script source (cdnjs.cloudflare.com) — wide, unjustified attack surface"
+    ],
+    "recommendedNextSteps": [
+      "Open PR with this remediation batch and confirm doc-lint.yml passes on CI",
+      "Schedule a CSP tightening pass (remove cdnjs whitelist, replace 'unsafe-inline' with SHA-256 hash of inline JSON-LD)",
+      "Standardize on either last_reviewed or last-updated frontmatter key across the org and update remaining repos"
+    ]
+  },
+  "findings": [
+    {
+      "id": "F-0001",
+      "title": "AGENTS.md contains UTF-8 mojibake (`â€\"` instead of em-dash `—`)",
+      "severity": "medium",
+      "category": "docs",
+      "status": "fixed",
+      "confidence": "high",
+      "standardsBasis": [".markdownlint.json", "consistent UTF-8 encoding across repo"],
+      "locations": [
+        { "file": "AGENTS.md", "startLine": 19, "endLine": 19, "symbol": "canonical_purpose" }
+      ],
+      "evidence": "Line 19 of AGENTS.md (Repo Identity block) had `Minimal static site â€\" Aresmax brand landing page` — the byte sequence is CP1252-decoded em-dash that was re-encoded as UTF-8.",
+      "impact": "Visual corruption in any rendered view (GitHub, IDE, generated docs). Indicator of an inconsistent encoding pipeline that could affect other agency-wide tooling that parses agent manifests.",
+      "recommendation": "Replace mojibake byte sequence with proper UTF-8 em-dash (—). Audit other repos in the agency for the same artifact.",
+      "remediationPlan": [
+        "Edit AGENTS.md line 19 to use `—`",
+        "Verify via `grep 'â€' AGENTS.md` returns no matches"
+      ],
+      "verificationSteps": [
+        "grep -P '[^\\x00-\\x7F]' AGENTS.md | grep -c 'â€' --> expect 0"
+      ],
+      "relatedFindings": [],
+      "commitRefs": [],
+      "ownerHint": "migar"
+    },
+    {
+      "id": "F-0002",
+      "title": "10 of 11 doc files fail .github/workflows/doc-lint.yml frontmatter schema",
+      "severity": "high",
+      "category": "build",
+      "status": "fixed",
+      "confidence": "high",
+      "standardsBasis": [
+        ".github/workflows/doc-lint.yml — requires title, owner, status, last_reviewed (and status ∈ {Draft, Active, Review, Deprecated, Archived})"
+      ],
+      "locations": [
+        { "file": "docs/ARCHITECTURE.md", "startLine": 1, "endLine": 1, "symbol": "frontmatter" },
+        { "file": "docs/DEPLOYMENT.md", "startLine": 1, "endLine": 1, "symbol": "frontmatter" },
+        { "file": "docs/DEVELOPMENT.md", "startLine": 1, "endLine": 5, "symbol": "frontmatter" },
+        { "file": "docs/MANIFEST.md", "startLine": 1, "endLine": 5, "symbol": "frontmatter" },
+        { "file": "docs/PRD.md", "startLine": 1, "endLine": 7, "symbol": "frontmatter" },
+        { "file": "docs/ROADMAP.md", "startLine": 1, "endLine": 5, "symbol": "frontmatter" },
+        { "file": "docs/RUNBOOK.md", "startLine": 1, "endLine": 1, "symbol": "frontmatter" },
+        { "file": "docs/SECURITY.md", "startLine": 1, "endLine": 1, "symbol": "frontmatter" },
+        { "file": "docs/TEST_STRATEGY.md", "startLine": 1, "endLine": 1, "symbol": "frontmatter" },
+        { "file": "docs/ADR/001-initial-architecture.md", "startLine": 1, "endLine": 1, "symbol": "frontmatter" }
+      ],
+      "evidence": "Python validator embedded in doc-lint.yml requires the four fields. 6 docs had no frontmatter at all; 3 had partial frontmatter with `status: \"Current\"` which is also not in the VALID set; PRD only missed `last_reviewed`.",
+      "impact": "Every PR that modifies docs/ would fail the doc-lint job and block merge.",
+      "recommendation": "Add the canonical 4-field frontmatter to each doc with status=Active and last_reviewed=today.",
+      "remediationPlan": [
+        "Prepend YAML frontmatter to 6 missing files",
+        "Upgrade frontmatter in 3 partial files (status invalid)",
+        "Add last_reviewed to PRD.md"
+      ],
+      "verificationSteps": [
+        "Re-run the validator embedded in doc-lint.yml against all docs/**/*.md --> expect 'Frontmatter valid (N files checked)'"
+      ],
+      "relatedFindings": ["F-0005"],
+      "commitRefs": [],
+      "ownerHint": "migar"
+    },
+    {
+      "id": "F-0003",
+      "title": "docs/SECURITY.md misstates the actual Content-Security-Policy",
+      "severity": "medium",
+      "category": "security",
+      "status": "fixed",
+      "confidence": "high",
+      "standardsBasis": ["docs-as-source-of-truth", "OWASP CSP guidance"],
+      "locations": [
+        { "file": "docs/SECURITY.md", "startLine": 7, "endLine": 11, "symbol": "Content Security Policy" },
+        { "file": "index.html", "startLine": 5, "endLine": 5, "symbol": "<meta http-equiv=\"Content-Security-Policy\">" }
+      ],
+      "evidence": "SECURITY.md claimed `script-src 'self'` and `style-src 'self' 'unsafe-inline'`, while index.html line 5 actually declares `script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com`. The page also has an inline `<script type=\"application/ld+json\">` block (line 27) that the doc claims does not exist.",
+      "impact": "Security documentation that contradicts production posture is worse than no documentation — it gives a false sense of control during reviews. A future contributor relying on the doc would over-trust the CSP and could ship an inline-script XSS that the policy does not actually block.",
+      "recommendation": "Replace the prose claim with the literal CSP. Document each directive's actual value, list the rationale for `'unsafe-inline'` (JSON-LD), and add a Hardening Backlog table.",
+      "remediationPlan": [
+        "Rewrite the Content Security Policy section to mirror the live CSP",
+        "Add a Hardening Backlog table with three concrete tightening actions"
+      ],
+      "verificationSteps": [
+        "diff prose CSP in docs/SECURITY.md vs the meta tag in index.html --> expect zero semantic differences"
+      ],
+      "relatedFindings": ["F-0005"],
+      "commitRefs": [],
+      "ownerHint": "migar"
+    },
+    {
+      "id": "F-0004",
+      "title": "docs/RUNBOOK.md references main branch on a master-default repo",
+      "severity": "medium",
+      "category": "docs",
+      "status": "fixed",
+      "confidence": "high",
+      "standardsBasis": ["accurate-runbook contract"],
+      "locations": [
+        { "file": "docs/RUNBOOK.md", "startLine": 7, "endLine": 7, "symbol": "Hosting" },
+        { "file": "docs/RUNBOOK.md", "startLine": 19, "endLine": 19, "symbol": "Deploy a Change" },
+        { "file": "docs/RUNBOOK.md", "startLine": 38, "endLine": 38, "symbol": "Incident Procedures" },
+        { "file": "docs/RUNBOOK.md", "startLine": 69, "endLine": 72, "symbol": "Rollback a Bad Deployment" }
+      ],
+      "evidence": "git symbolic-ref refs/remotes/origin/HEAD --> refs/remotes/origin/master. RUNBOOK referenced `git push origin main` and `branch: main` in 4 places.",
+      "impact": "On-call following the runbook during an incident would attempt to push to a non-existent branch and lose deployment time.",
+      "recommendation": "Replace every `main` reference with `master`.",
+      "remediationPlan": [
+        "Edit RUNBOOK.md to use master throughout"
+      ],
+      "verificationSteps": [
+        "grep -n 'origin main\\| main / root\\|branch: main' docs/RUNBOOK.md --> expect no matches"
+      ],
+      "relatedFindings": [],
+      "commitRefs": [],
+      "ownerHint": "migar"
+    },
+    {
+      "id": "F-0005",
+      "title": "CSP whitelists unused script source `https://cdnjs.cloudflare.com`",
+      "severity": "low",
+      "category": "security",
+      "status": "needs_owner",
+      "confidence": "high",
+      "standardsBasis": ["Principle of least privilege"],
+      "locations": [
+        { "file": "index.html", "startLine": 5, "endLine": 5, "symbol": "Content-Security-Policy" }
+      ],
+      "evidence": "Repo-wide grep for cdnjs/cloudflare returns only the CSP whitelist line itself — nothing actually loads from cdnjs.cloudflare.com.",
+      "impact": "Wider-than-necessary CSP. A future XSS that could inject a script tag would have cdnjs.cloudflare.com as an available payload host.",
+      "recommendation": "Remove `https://cdnjs.cloudflare.com` from script-src. Optionally replace `'unsafe-inline'` with SHA-256 hash of the inline JSON-LD block.",
+      "remediationPlan": [
+        "Edit index.html CSP, drop cdnjs token",
+        "Test on Chrome / Firefox / Safari that the page renders normally and no CSP violations log",
+        "Run Lighthouse to confirm score parity",
+        "Update docs/SECURITY.md Hardening Backlog to mark this item complete"
+      ],
+      "verificationSteps": [
+        "Open https://aresmaxs.com with DevTools open --> expect no CSP violation reports",
+        "Lighthouse score parity within 1 point of baseline"
+      ],
+      "relatedFindings": ["F-0003"],
+      "commitRefs": [],
+      "ownerHint": "migar — needs live-site browser test before merge"
+    }
+  ]
+}
