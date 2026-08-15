@@ -1,5 +1,68 @@
 # Aresmaxs.com Feature Requests
 
+<!-- REGROUND:reground-20260815-python-fleet:BEGIN -->
+
+## Re-Grounding 2026-08-15 — Autonomous Fleet Pass
+
+> **Run:** `reground-20260815-python-fleet` · **Method:** static forensic recon of all 59 git repos under `C:\Users\mcgac\Python`
+> (tree + manifests + compose + git metadata + targeted greps via Windows-MCP; **no code executed this pass**).
+> **Execution contract:** [`FRSP.md`](FRSP.md) — the resident self-agent system prompt generated alongside this block.
+
+### Verified identity (2026-08-15)
+
+Aresmax Digital brand site (aresmaxs.com, GitHub Pages): cinematic single-page brand experience, 4 HTML pages, CSP meta, reduced-motion support.
+
+### Evidence snapshot
+
+| Field | Value |
+|---|---|
+| Class | Static/managed website |
+| Branch @ recon | `master` |
+| Last commit observed | 2026-07-27 |
+| Stack | Static HTML/CSS/vanilla JS |
+| Ports/services declared | none declared |
+| Test posture | 3 workflows (doc-lint family) |
+| LLM posture | CI-level only |
+| MCP posture | n/a |
+| Dashboard posture | arescore registration |
+
+### Prior-content status
+
+The body below this block is the prior audit register (last authored ~2026-07-03/04, 229 lines). It is preserved verbatim per the fleet data-retention law. Every claim in it is now classified **STALE-UNVERIFIED** until re-proven by the FRSP execution loop — the repo has moved (last commit 2026-07-27).
+
+### Universal mandate assessment (fleet standard M-01..M-10)
+
+| ID | Mandate | Status | Evidence / note |
+|---|---|---|---|
+| M-01 | Repo self-agent | PARTIAL | AGENT.md/CLAUDE.md governance present fleet-wide; FRSP.md (this pass) is now the executable self-agent contract |
+| M-02 | Local-LLM capability (via canonical provider) | N-A/CI-LEVEL | LLM used in CI/build lanes only — correct for this repo class; runtime consumption not required |
+| M-03 | Local-LLM management reachable | N-A | Managed centrally by olaman; this repo consumes nothing at runtime |
+| M-04 | MCP surface | N-A | n/a |
+| M-05 | 3-click dashboard access | PARTIAL | arescore registration; 3-click rule unproven — audit required |
+| M-06 | Dedup/consolidate/reuse | OPEN | 1 directive(s) — see FRSP.md §5 |
+| M-07 | 100% coverage, all green/clean | UNPROVEN | 3 workflows (doc-lint family) — no verified 100% run on record |
+| M-08 | Live operational validation | UNVERIFIED | This pass was static (no code executed); runtime proof owed by FRSP execution |
+| M-09 | Traceability & auditability | MINIMAL | Observability signals vary; correlation-ID + decision-record standard mandated |
+| M-10 | Total data retention | POLICY-SET | Retention law encoded in FRSP.md §12; archive-never-destroy from this date |
+
+### Deduplication / consolidation directives (repo-specific)
+
+- **DD-01:** Site-kit extraction (see anavr.in)
+
+### Re-grounded gap register (adds to, never replaces, the register below)
+
+- **RG-01:** Same as site-kit siblings
+
+### Fleet context this repo must honor
+
+- Canonical local-LLM provider: **olaman (Ollama gateway/control plane, port 8030) fronting host Ollama at 127.0.0.1:11434**
+- Canonical fleet dashboard/command center: **arescore (ClawMedia command center, app/server.js :8889; Arescore hub seed http://127.0.0.1:8890/)**
+- Canonical skills SSOT: **agency (SSOT skill registry, 708-skill capability manifest)**
+- Known fleet port collisions (resolve via the arescore port registry): 8030: olaman vs dev-analytics api; 8741: freeai backend vs myskills; 8000: mia, lab, peni, myprd backends (+fira internal); 8028: fira frontend vs midas (full list in FRSP.md §1)
+
+<!-- REGROUND:reground-20260815-python-fleet:END -->
+
+
 ## Review Metadata
 
 - **Review date:** 2026-07-03
