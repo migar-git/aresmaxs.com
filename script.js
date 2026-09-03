@@ -172,4 +172,4 @@ window.addEventListener('scroll', () => {
 // ========== CONSOLE EASTER EGG ==========
 console.log('%c🚀 ARESMAX DIGITAL', 'color: #FFD700; font-size: 2rem; font-weight: 900;');
 console.log('%cWe don\'t wait for the future. We build it.', 'color: #999; font-size: 1rem;');
-console.log('%cInterested in working with us? contact@aresmaxs.com', 'color: #FFD700; font-size: 0.9rem;');
+console.log('%cInterested in working with us? info@aresmaxs.com', 'color: #FFD700; font-size: 0.9rem;');
